@@ -1,17 +1,18 @@
 fileName = "test"
 
-if [ $buildScript == *"test"];then
+if ($buildScript == *"test") {
     fileName = "test"
-elif [ $buildScript == *"dev"];then
+}
+if ($buildScript == *"dev") {
     fileName = "development"
-else
+} else {
     fileName = "production"
-fi
+}
 
-if [ $installDependencies == "true"];then
+if ($installDependencies == "true") {
     yarn
-else
+} else {
     echo "不需要安装依赖！"
+}
 
-fi
 $buildScript
