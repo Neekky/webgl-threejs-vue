@@ -1,13 +1,5 @@
-fileName = "test"
+fileName = "production"
 echo "$buildScript 2323"
-if ($buildScript == "test") {
-    fileName = "test"
-}
-if ($buildScript == "dev") {
-    fileName = "development"
-} else {
-    fileName = "production"
-}
 
 if ($installDependencies == "true") {
     yarn
@@ -15,4 +7,4 @@ if ($installDependencies == "true") {
     echo "不需要安装依赖！"
 }
 
-$buildScript
+yarn run build
