@@ -1,16 +1,16 @@
 fileName = "test"
 
-if [[ $buildScript == *"test"]]
+if [ $buildScript == *"test"]
     then
         fileName = "test"
-elif [[ $buildScript == *"dev"]]
+elif [ $buildScript == *"dev"]
     then
         fileName = "development"
 else
     fileName = "production"
 fi
 
-if [[ $installDependencies == "true"]]
+if [ $installDependencies == "true"]
     then
         yarn
     else
