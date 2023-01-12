@@ -1,2 +1,4 @@
-filename = "test"
-sh 'yarn'
+{
+    filename = "test"
+    sh 'yarn'
+}
