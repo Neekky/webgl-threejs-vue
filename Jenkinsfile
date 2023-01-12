@@ -1,5 +1,5 @@
 fileName = "test"
-print($buildScript, 2313)
+echo "$buildScript 2323"
 if ($buildScript == "test") {
     fileName = "test"
 }
