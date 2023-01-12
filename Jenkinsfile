@@ -1,4 +1,4 @@
 node {
     filename = "test"
-    sh 'yarn'
+    sh 'node -v'
 }
