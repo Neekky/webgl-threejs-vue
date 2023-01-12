@@ -1,7 +1,19 @@
-fileName = "production"
-echo "$buildScript 2323"
+node {
 
+pipeline{
+    agent any
+    environment{
+        
+    }
+    stages{
+        stage('calling function'){
+            steps{
+                script{
+                    sh 'yarn'
+                }
+             }
+         }
+     }
+  }
 
-sh  'yarn'
-
-sh 'yarn run build'
+}
