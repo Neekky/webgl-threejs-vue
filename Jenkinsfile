@@ -1,9 +1,9 @@
 fileName = "test"
 
-if ($buildScript == *"test") {
+if ($buildScript == "test") {
     fileName = "test"
 }
-if ($buildScript == *"dev") {
+if ($buildScript == "dev") {
     fileName = "development"
 } else {
     fileName = "production"
