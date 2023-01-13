@@ -1,4 +1,3 @@
 node -v
 npm -v
-yarn -v
-# yarn
+npm install yarn -g
