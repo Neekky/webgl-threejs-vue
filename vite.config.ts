@@ -8,6 +8,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 export default defineConfig({
   base: "threejs",
   plugins: [vue(), vueJsx()],
+  assetsInclude: ["**/*.jpg", "**/*.glb", "**/*.mp4"],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
