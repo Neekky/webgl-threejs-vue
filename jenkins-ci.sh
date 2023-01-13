@@ -10,4 +10,4 @@ yarn config get registry
 
 npm -v
 
-yarn --max-old-space-size=4096
+yarn --max-old-space-size=1024
