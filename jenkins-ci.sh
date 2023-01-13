@@ -1,3 +1,4 @@
 node -v
 npm -v
-npm install
+yarn -v
+# yarn
