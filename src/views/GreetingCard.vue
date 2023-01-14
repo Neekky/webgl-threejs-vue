@@ -27,7 +27,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 // 设置相机位置
-camera.position.set(-3.23, 7.98, 7.06);
+camera.position.set(-3.23, 3, 4.06);
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer({
@@ -198,7 +198,7 @@ const translateCamera = (position: any, target: any) => {
 // 定义场景
 let screens = [
   {
-    text: "圣诞快乐",
+    text: "入目无他人，四下皆是你",
     callback: () => {
       // 执行函数切换位置
       translateCamera(
@@ -208,44 +208,153 @@ let screens = [
     },
   },
   {
-    text: "哈哈哈哈哈",
+    text: "愿你野蛮生长，最终璀璨生光",
     callback: () => {
       // 执行函数切换位置
       translateCamera(new THREE.Vector3(7, 0, 23), new THREE.Vector3(0, 0, 0));
     },
   },
   {
-    text: "爱你么么哒",
+    text: "承蒙你的出现，足够让我喜欢一辈子",
     callback: () => {
       // 执行函数切换位置
+      translateCamera(new THREE.Vector3(10, 3, 0), new THREE.Vector3(5, 2, 0));
     },
   },
   {
-    text: "亚西西亚",
+    text: "愿将天上的星星送给你",
     callback: () => {
       // 执行函数切换位置
+      translateCamera(new THREE.Vector3(7, 2, 25), new THREE.Vector3(0, 0, 0));
+      makeHeart()
     },
   },
   {
-    text: "疫情结束，健康快乐",
+    text: "愿有岁月可回收且以深情共白头",
     callback: () => {
       // 执行函数切换位置
+      translateCamera(
+        new THREE.Vector3(-20, 1.3, 6.6),
+        new THREE.Vector3(5, 2, 0)
+      );
     },
   },
 ];
 
+// 实例化创建满天星星
+const starInstance = new THREE.InstancedMesh(
+  new THREE.SphereGeometry(0.1, 32, 32),
+  new THREE.MeshStandardMaterial({
+    color: 0xe5cd08,
+    emissive: 0xe5cd08,
+    emissiveIntensity: 10,
+  }),
+  100
+);
+
+// 星星随机分布到天上
+const startArr: any[] = [];
+const endArr: any[] = [];
+
+for (let i = 0; i < 100; i++) {
+  let x = Math.random() * 100 - 50;
+  let y = Math.random() * 100 - 50;
+  let z = Math.random() * 100 - 50;
+  startArr.push(new THREE.Vector3(x, y, z));
+
+  let martix = new THREE.Matrix4();
+  martix.setPosition(x, y, z);
+  starInstance.setMatrixAt(i, martix);
+}
+
+// 使用补间动画移动星星-创建爱心路径
+let heartShape = new THREE.Shape();
+heartShape.moveTo(-25, -25);
+heartShape.bezierCurveTo(-25, -25, -20, 0, 0, 0);
+heartShape.bezierCurveTo(30, 0, 30, -35, 30, -35);
+heartShape.bezierCurveTo(30, -55, 10, -77, -25, -95);
+heartShape.bezierCurveTo(-60, -77, -80, -55, -80, -35);
+heartShape.bezierCurveTo(-80, -35, -80, 0, -50, 0);
+heartShape.bezierCurveTo(-35, 0, -25, -25, -25, -25);
+
+// 根据爱心路径获取点
+let center = new THREE.Vector3(8, 10, 10);
+for (let i = 0; i < 100; i++) {
+  let point = heartShape.getPoint(i / 100);
+  endArr.push(
+    new THREE.Vector3(
+      point.x * 0.1 + center.x,
+      point.y * 0.1 + center.y,
+      center.z
+    )
+  );
+}
+
+// 创建爱心动画
+function makeHeart() {
+  let params = {
+    time: 0,
+  };
+
+  gsap.to(params, {
+    time: 1,
+    duration: 1,
+    onUpdate: () => {
+      for (let i = 0; i < 100; i++) {
+        let x = startArr[i].x + (endArr[i].x - startArr[i].x) * params.time;
+        let y = startArr[i].y + (endArr[i].y - startArr[i].y) * params.time;
+        let z = startArr[i].z + (endArr[i].z - startArr[i].z) * params.time;
+        let matrix = new THREE.Matrix4();
+        matrix.setPosition(x, y, z);
+        starInstance.setMatrixAt(i, matrix);
+      }
+      starInstance.instanceMatrix.needsUpdate = true;
+    },
+  });
+}
+
+function restoreHeart() {
+  let params = {
+    time: 0,
+  };
+
+  gsap.to(params, {
+    time: 1,
+    duration: 1,
+    onUpdate: () => {
+      for (let i = 0; i < 100; i++) {
+        let x = endArr[i].x + (startArr[i].x - endArr[i].x) * params.time;
+        let y = endArr[i].y + (startArr[i].y - endArr[i].y) * params.time;
+        let z = endArr[i].z + (startArr[i].z - endArr[i].z) * params.time;
+        let matrix = new THREE.Matrix4();
+        matrix.setPosition(x, y, z);
+        starInstance.setMatrixAt(i, matrix);
+      }
+      starInstance.instanceMatrix.needsUpdate = true;
+    },
+  });
+}
+
+scene.add(starInstance);
+
 let index = ref(0);
 
+let isAnimated = false;
 // 监听鼠标事件
 window.addEventListener(
   "click",
   (e) => {
-    console.log(21332112);
+    if (isAnimated) return;
+    isAnimated = true;
     index.value++;
     if (index.value > screens.length - 1) {
       index.value = 0;
+      restoreHeart();
     }
     screens[index.value].callback();
+    setTimeout(() => {
+      isAnimated = false;
+    }, 1000);
   },
   false
 );
@@ -255,6 +364,8 @@ onMounted(() => {
   // 添加控制器
   const controls = new OrbitControls(camera, container.value);
   controls.enableDamping = true;
+  // 设置控制器默认坐标
+  controls.target.set(-8, 2, 0);
   container.value.appendChild(renderer.domElement);
   controlsRef.value = controls;
   // 定义渲染函数
@@ -281,6 +392,16 @@ onMounted(() => {
 
 <template>
   <div class="container" ref="container" />
+  <div
+    class="scenes"
+    :style="{
+      transform: `translateY(${index * -100}vh)`,
+    }"
+  >
+    <div class="scenes-text-wrap" :key="item.text" v-for="item in screens">
+      <h1 class="scenes-text">{{ item.text }}</h1>
+    </div>
+  </div>
   <div class="nav-btn">
     <router-link to="/">
       <button>去VR看房</button>
@@ -296,5 +417,29 @@ onMounted(() => {
   position: fixed;
   top: 20px;
   left: 20px;
+}
+
+.scenes {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: all 0.6s;
+}
+
+.scenes-text-wrap {
+  width: 100vw;
+  height: 100vh;
+}
+
+.scenes-text {
+  padding: 100px 50px;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 600;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.5);
 }
 </style>
