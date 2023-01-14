@@ -53,13 +53,14 @@ const light = new THREE.DirectionalLight(0xffffff, 1); // soft white light
 light.position.set(-100, 100, 10);
 scene.add(light);
 
-// 创建视频纹理
-const video = document.createElement("video");
-video.src = "./imgs/island/sky.mp4?url";
-video.loop = true;
+
 
 // 添加鼠标事件，触发视频播放
 window.addEventListener("click", (e) => {
+  // 创建视频纹理
+  const video = document.createElement("video");
+  video.src = "./imgs/island/sky.mp4?url";
+  video.loop = true;
   // 当鼠标移动的时候，播放视频
   // 判断视频是否处于播放状态
   if (video.paused) {
