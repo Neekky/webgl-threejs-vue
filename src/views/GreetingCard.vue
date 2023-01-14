@@ -222,11 +222,11 @@ let screens = [
     },
   },
   {
-    text: "愿将天上的星星送给你",
+    text: "召唤漫天的星辰送给你",
     callback: () => {
       // 执行函数切换位置
       translateCamera(new THREE.Vector3(7, 2, 25), new THREE.Vector3(0, 0, 0));
-      makeHeart()
+      makeHeart();
     },
   },
   {
@@ -245,8 +245,8 @@ let screens = [
 const starInstance = new THREE.InstancedMesh(
   new THREE.SphereGeometry(0.1, 32, 32),
   new THREE.MeshStandardMaterial({
-    color: 0xe5cd08,
-    emissive: 0xe5cd08,
+    color: 0xf50b5b,
+    emissive: 0xf50b5b,
     emissiveIntensity: 10,
   }),
   100
@@ -298,7 +298,7 @@ function makeHeart() {
 
   gsap.to(params, {
     time: 1,
-    duration: 1,
+    duration: 2,
     onUpdate: () => {
       for (let i = 0; i < 100; i++) {
         let x = startArr[i].x + (endArr[i].x - startArr[i].x) * params.time;
