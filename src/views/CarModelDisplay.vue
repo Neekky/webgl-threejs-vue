@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted } from "vue";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
@@ -82,7 +82,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   transparent: true,
 });
 
-gltfLoader.load("/model/bmw01.glb", (gltf) => {
+gltfLoader.load("./model/bmw01.glb", (gltf) => {
   const bmw = gltf.scene;
   // bmw.position.x = 2;
   bmw.traverse((child) => {
@@ -199,7 +199,7 @@ const selectMaterial = (item: any) => {
   bodyMaterial.clearcoatRoughness = item.value;
   frontMaterial.clearcoatRoughness = item.value;
   hoodMaterial.clearcoatRoughness = item.value;
-}
+};
 
 // 挂载完毕之后获取dom
 onMounted(() => {
@@ -313,7 +313,6 @@ onMounted(() => {
         </div>
       </div>
 
-
       <h2>选择贴膜材质</h2>
       <div class="body-select">
         <div
@@ -327,6 +326,11 @@ onMounted(() => {
           </button>
         </div>
       </div>
+    </div>
+    <div class="nav-btn">
+      <router-link to="/GreetingCard">
+        <button>去水天贺卡</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -364,4 +368,9 @@ onMounted(() => {
   cursor: pointer;
 }
 
+.nav-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
 </style>

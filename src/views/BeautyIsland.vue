@@ -40,7 +40,7 @@ const skyGeometry = new THREE.SphereGeometry(1000, 60, 60);
 
 skyGeometry.scale(1, 1, -1);
 
-const skyTexture = new THREE.TextureLoader().load("/imgs/island/sky.jpg");
+const skyTexture = new THREE.TextureLoader().load("./imgs/island/sky.jpg");
 const skyMaterial = new THREE.MeshBasicMaterial({
   map: skyTexture,
 });
@@ -53,21 +53,20 @@ const light = new THREE.DirectionalLight(0xffffff, 1); // soft white light
 light.position.set(-100, 100, 10);
 scene.add(light);
 
-// 创建视频纹理
-const video = document.createElement("video");
-video.src = "/imgs/island/sky.mp4";
-video.loop = true;
-
 // 添加鼠标事件，触发视频播放
 window.addEventListener("click", (e) => {
-  // 当鼠标移动的时候，播放视频
-  // 判断视频是否处于播放状态
-  if (video.paused) {
-    video.play();
-    const texture = new THREE.VideoTexture(video);
-    skyMaterial.map = texture;
-    skyMaterial.map.needsUpdate = true;
-  }
+  // 创建视频纹理
+  // const video = document.createElement("video");
+  // video.src = "./imgs/island/sky.mp4?url";
+  // video.loop = true;
+  // // 当鼠标移动的时候，播放视频
+  // // 判断视频是否处于播放状态
+  // if (video.paused) {
+  //   video.play();
+  //   const texture = new THREE.VideoTexture(video);
+  //   skyMaterial.map = texture;
+  //   skyMaterial.map.needsUpdate = true;
+  // }
 });
 
 // 载入环境纹理hdr
@@ -106,7 +105,7 @@ dracoLoader.setDecoderPath("/draco/");
 
 loader.setDRACOLoader(dracoLoader);
 
-loader.load("/model/island2.glb", (gltf) => {
+loader.load("./model/island2.glb", (gltf) => {
   const island = gltf.scene;
   scene.add(island);
 });
@@ -157,6 +156,17 @@ onMounted(() => {
 
 <template>
   <div class="container" ref="container" />
+  <div class="nav-btn">
+    <router-link to="/CarModelDisplay">
+      <button>去车模</button>
+    </router-link>
+  </div>
 </template>
 
-<style></style>
+<style>
+.nav-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+</style>

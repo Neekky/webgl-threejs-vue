@@ -35,7 +35,7 @@ const boxMaterials: any = [];
 arr.forEach((item) => {
   // 纹理加载
   let texture = new THREE.TextureLoader().load(
-    `/imgs/vrHome/living/${item}.jpg`
+    `./imgs/vrHome/living/${item}.jpg?url`
   );
 
   if (item === "4_u" || item === "4_d") {

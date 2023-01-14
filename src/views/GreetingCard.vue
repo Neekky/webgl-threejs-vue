@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
-import { ref, onMounted, render } from "vue";
+import { ref, onMounted } from "vue";
 // 导入水面
 import { Water } from "three/examples/jsm/objects/Water2";
 
@@ -66,7 +66,7 @@ rgbeLoader.load("hdr/sky.hdr", (texture) => {
 });
 
 // 加载模型
-loader.load("/model/scene.glb", (gltf) => {
+loader.load("./model/scene.glb", (gltf) => {
   const model = gltf.scene;
   model.traverse((child) => {
     if (child.name === "Plane") {
@@ -81,7 +81,7 @@ loader.load("/model/scene.glb", (gltf) => {
 });
 
 // 加载模型
-loader.load("/model/tank.gltf", (gltf) => {
+loader.load("./model/tank.gltf", (gltf) => {
   const model = gltf.scene;
   model.castShadow = true;
   model.position.set(10, 0, 10);
@@ -281,9 +281,20 @@ onMounted(() => {
 
 <template>
   <div class="container" ref="container" />
+  <div class="nav-btn">
+    <router-link to="/">
+      <button>去VR看房</button>
+    </router-link>
+  </div>
 </template>
 
-<style>
+<style scoped>
 .container {
+}
+
+.nav-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }
 </style>
