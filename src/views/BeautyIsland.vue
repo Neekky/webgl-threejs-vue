@@ -40,7 +40,7 @@ const skyGeometry = new THREE.SphereGeometry(1000, 60, 60);
 
 skyGeometry.scale(1, 1, -1);
 
-const skyTexture = new THREE.TextureLoader().load("/imgs/island/sky.jpg");
+const skyTexture = new THREE.TextureLoader().load("./imgs/island/sky.jpg");
 const skyMaterial = new THREE.MeshBasicMaterial({
   map: skyTexture,
 });
@@ -55,7 +55,7 @@ scene.add(light);
 
 // 创建视频纹理
 const video = document.createElement("video");
-video.src = "/imgs/island/sky.mp4";
+video.src = "./imgs/island/sky.mp4?url";
 video.loop = true;
 
 // 添加鼠标事件，触发视频播放
@@ -106,7 +106,7 @@ dracoLoader.setDecoderPath("/draco/");
 
 loader.setDRACOLoader(dracoLoader);
 
-loader.load("/model/island2.glb", (gltf) => {
+loader.load("./model/island2.glb", (gltf) => {
   const island = gltf.scene;
   scene.add(island);
 });
