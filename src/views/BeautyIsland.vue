@@ -158,6 +158,17 @@ onMounted(() => {
 
 <template>
   <div class="container" ref="container" />
+  <div class="nav-btn">
+    <router-link to="/CarModelDisplay">
+      <button>去车模</button>
+    </router-link>
+  </div>
 </template>
 
-<style></style>
+<style>
+.nav-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+</style>

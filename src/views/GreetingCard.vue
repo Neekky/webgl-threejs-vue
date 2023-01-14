@@ -281,9 +281,20 @@ onMounted(() => {
 
 <template>
   <div class="container" ref="container" />
+  <div class="nav-btn">
+    <router-link to="/">
+      <button>去VR看房</button>
+    </router-link>
+  </div>
 </template>
 
-<style>
+<style scoped>
 .container {
+}
+
+.nav-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }
 </style>
