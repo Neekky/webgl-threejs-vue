@@ -359,6 +359,25 @@ window.addEventListener(
   false
 );
 
+// 监听鼠标事件
+window.addEventListener(
+  "touchstart",
+  (e) => {
+    if (isAnimated) return;
+    isAnimated = true;
+    index.value++;
+    if (index.value > screens.length - 1) {
+      index.value = 0;
+      restoreHeart();
+    }
+    screens[index.value].callback();
+    setTimeout(() => {
+      isAnimated = false;
+    }, 1000);
+  },
+  false
+);
+
 // 挂载完毕之后获取dom
 onMounted(() => {
   // 添加控制器
