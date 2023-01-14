@@ -81,12 +81,12 @@ loader.load("./model/scene.glb", (gltf) => {
 });
 
 // 加载模型
-loader.load("./model/tank.gltf", (gltf) => {
-  const model = gltf.scene;
-  model.castShadow = true;
-  model.position.set(10, 0, 10);
-  scene.add(model);
-});
+// loader.load("./model/tank.gltf", (gltf) => {
+//   const model = gltf.scene;
+//   model.castShadow = true;
+//   model.position.set(10, 0, 10);
+//   scene.add(model);
+// });
 
 // 添加光源
 const light = new THREE.DirectionalLight(0xffffff, 1);
