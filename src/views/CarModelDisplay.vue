@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted } from "vue";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
@@ -82,7 +82,7 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
   transparent: true,
 });
 
-gltfLoader.load("/model/bmw01.glb", (gltf) => {
+gltfLoader.load("./model/bmw01.glb", (gltf) => {
   const bmw = gltf.scene;
   // bmw.position.x = 2;
   bmw.traverse((child) => {
